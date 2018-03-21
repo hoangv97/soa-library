@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+	<meta charset="utf-8">
+	<title>UET Library</title>
+
+	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/css/bootstrap.css'>
+	<link rel='stylesheet prefetch' href='https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css'>
+	<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css'>
+	
+	<style>
+		button:not([disabled]) {
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div id="app" class="container mb-4">
+		<h1 class="font-weight-light text-center mb-3 mt-2">
+			Library Borrowing System
+		</h1>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">No.</th>
+					<th scope="col">Title</th>
+					<th scope="col">Author</th>
+					<th scope="col">Description</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="(book, index) in books">
+					<th scope="row">{{ index + 1 }}</th>
+					<td>{{ book.title }}</td>
+					<td>{{ book.author }}</td>
+					<td>{{ book.description }}</td>
+					<td>
+						<button :disabled="book.availableNumber < 2 || isBorrowed(book)" 
+								@click="borrowBook(book)" 
+								type="button" class="btn btn-primary btn-sm">
+							Borrow{{ isBorrowed(book) ? 'ed' : '' }}
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js'></script>
+	<script src='https://use.fontawesome.com/releases/v5.0.8/js/all.js'></script>
+	<script src='https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js'></script>
+	<script src='https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js'></script>
+
+	<script>
+		$(document).ready(() => {
+			new Vue({
+				el: '#app',
+				data: {
+					books: [],
+					borrowedBooks: []
+				},
+				created() {
+					this.books = getData()		
+				},
+				methods: {
+					borrowBook(book) {
+						this.borrowedBooks.push(book.id)
+						toastr.success(book.id, 'Borrowed Book!')
+					},
+					isBorrowed(book) {
+						return this.borrowedBooks.find(id => book.id === id) !== undefined
+					}
+				},
+				watch: {
+					books() {
+						if (!$.fn.DataTable.isDataTable('table'))
+							$('table').DataTable()
+					}
+				}
+			})
+			
+		})
+
+		getData = () => [
+			{
+				"id": "9781593275846",
+				"title": "Eloquent JavaScript, Second Edition",
+				"author": "Marijn Haverbeke",
+				"description": "JavaScript lies at the heart of almost every modern web application, from social apps to the newest browser-based games. Though simple for beginners to pick up and play with, JavaScript is a flexible, complex language that you can use to build full-scale applications.",
+				"availableNumber": 2
+			},
+			{
+				"id": "9781449331818",
+				"title": "Learning JavaScript Design Patterns",
+				"author": "Addy Osmani",
+				"description": "With Learning JavaScript Design Patterns, you'll learn how to write beautiful, structured, and maintainable JavaScript by applying classical and modern design patterns to the language. If you want to keep your code efficient, more manageable, and up-to-date with the latest best practices, this book is for you.",
+				"availableNumber": 3
+			},
+			{
+				"id": "9781449365035",
+				"title": "Speaking JavaScript",
+				"author": "Axel Rauschmayer",
+				"description": "Like it or not, JavaScript is everywhere these days-from browser to server to mobile-and now you, too, need to learn the language or dive deeper than you have. This concise book guides you into and through JavaScript, written by a veteran programmer who once found himself in the same position.",
+				"availableNumber": 1
+			},
+			{
+				"id": "9781491950296",
+				"title": "Programming JavaScript Applications",
+				"author": "Eric Elliott",
+				"description": "Take advantage of JavaScript's power to build robust web-scale or enterprise applications that are easy to extend and maintain. By applying the design patterns outlined in this practical book, experienced JavaScript developers will learn how to write flexible and resilient code that's easier-yes, easier-to work with as your code base grows.",
+				"availableNumber": 4
+			},
+			{
+				"id": "9781593277574",
+				"title": "Understanding ECMAScript 6",
+				"author": "Nicholas C. Zakas",
+				"description": "ECMAScript 6 represents the biggest update to the core of JavaScript in the history of the language. In Understanding ECMAScript 6, expert developer Nicholas C. Zakas provides a complete guide to the object types, syntax, and other exciting changes that ECMAScript 6 brings to JavaScript.",
+				"availableNumber": 4
+			},
+			{
+				"id": "9781491904244",
+				"title": "You Don't Know JS",
+				"author": "Kyle Simpson",
+				"description": "No matter how much experience you have with JavaScript, odds are you don’t fully understand the language.",
+				"availableNumber": 2
+			},
+			{
+				"id": "9781449325862",
+				"title": "Git Pocket Guide",
+				"author": "Richard E. Silverman",
+				"description": "This pocket guide is the perfect on-the-job companion to Git, the distributed version control system. It provides a compact, readable introduction to Git for new users, as well as a reference to common commands and procedures for those of you with Git experience.",
+				"availableNumber": 1
+			},
+			{
+				"id": "9781449337711",
+				"title": "Designing Evolvable Web APIs with ASP.NET",
+				"author": "Glenn Block, et al.",
+				"description": "Design and build Web APIs for a broad range of clients—including browsers and mobile devices—that can adapt to change over time. This practical, hands-on guide takes you through the theory and tools you need to build evolvable HTTP services with Microsoft’s ASP.NET Web API framework. In the process, you’ll learn how design and implement a real-world Web API.",
+				"availableNumber": 3
+			},
+			{
+				"id": "9781593275846",
+				"title": "Eloquent JavaScript, Second Edition",
+				"author": "Marijn Haverbeke",
+				"description": "JavaScript lies at the heart of almost every modern web application, from social apps to the newest browser-based games. Though simple for beginners to pick up and play with, JavaScript is a flexible, complex language that you can use to build full-scale applications.",
+				"availableNumber": 2
+			},
+			{
+				"id": "9781449331818",
+				"title": "Learning JavaScript Design Patterns",
+				"author": "Addy Osmani",
+				"description": "With Learning JavaScript Design Patterns, you'll learn how to write beautiful, structured, and maintainable JavaScript by applying classical and modern design patterns to the language. If you want to keep your code efficient, more manageable, and up-to-date with the latest best practices, this book is for you.",
+				"availableNumber": 3
+			},
+			{
+				"id": "9781449365035",
+				"title": "Speaking JavaScript",
+				"author": "Axel Rauschmayer",
+				"description": "Like it or not, JavaScript is everywhere these days-from browser to server to mobile-and now you, too, need to learn the language or dive deeper than you have. This concise book guides you into and through JavaScript, written by a veteran programmer who once found himself in the same position.",
+				"availableNumber": 1
+			},
+			{
+				"id": "9781491950296",
+				"title": "Programming JavaScript Applications",
+				"author": "Eric Elliott",
+				"description": "Take advantage of JavaScript's power to build robust web-scale or enterprise applications that are easy to extend and maintain. By applying the design patterns outlined in this practical book, experienced JavaScript developers will learn how to write flexible and resilient code that's easier-yes, easier-to work with as your code base grows.",
+				"availableNumber": 4
+			},
+			{
+				"id": "9781593277574",
+				"title": "Understanding ECMAScript 6",
+				"author": "Nicholas C. Zakas",
+				"description": "ECMAScript 6 represents the biggest update to the core of JavaScript in the history of the language. In Understanding ECMAScript 6, expert developer Nicholas C. Zakas provides a complete guide to the object types, syntax, and other exciting changes that ECMAScript 6 brings to JavaScript.",
+				"availableNumber": 4
+			},
+			{
+				"id": "9781491904244",
+				"title": "You Don't Know JS",
+				"author": "Kyle Simpson",
+				"description": "No matter how much experience you have with JavaScript, odds are you don’t fully understand the language.",
+				"availableNumber": 2
+			},
+			{
+				"id": "9781449325862",
+				"title": "Git Pocket Guide",
+				"author": "Richard E. Silverman",
+				"description": "This pocket guide is the perfect on-the-job companion to Git, the distributed version control system. It provides a compact, readable introduction to Git for new users, as well as a reference to common commands and procedures for those of you with Git experience.",
+				"availableNumber": 1
+			},
+			{
+				"id": "9781449337711",
+				"title": "Designing Evolvable Web APIs with ASP.NET",
+				"author": "Glenn Block, et al.",
+				"description": "Design and build Web APIs for a broad range of clients—including browsers and mobile devices—that can adapt to change over time. This practical, hands-on guide takes you through the theory and tools you need to build evolvable HTTP services with Microsoft’s ASP.NET Web API framework. In the process, you’ll learn how design and implement a real-world Web API.",
+				"availableNumber": 3
+			}
+		]
+	</script>
+</body>
+</html>

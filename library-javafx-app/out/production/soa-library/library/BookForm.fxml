@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<GridPane fx:controller="library.BookForm" xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    <columnConstraints>
+        <ColumnConstraints minWidth="100" prefWidth="100"
+                           maxWidth="Infinity" halignment="RIGHT">
+        </ColumnConstraints>
+        <ColumnConstraints minWidth="200" prefWidth="200"
+                           maxWidth="Infinity" hgrow="ALWAYS">
+        </ColumnConstraints>
+    </columnConstraints>
+
+    <!-- Add Header Label -->
+    <Label text="Create New Book" GridPane.columnIndex="0"
+           GridPane.rowIndex="0" GridPane.columnSpan="2"
+           GridPane.rowSpan="1" GridPane.halignment="CENTER" >
+        <font>
+            <Font name="Arial" size="24" ></Font>
+        </font>
+        <GridPane.margin>
+            <Insets top="20" right="0" bottom="20" left="0"></Insets>
+        </GridPane.margin>
+    </Label>
+
+    <!-- Add Title Label -->
+    <Label text="Title : " GridPane.columnIndex="0"
+           GridPane.rowIndex="1" >
+    </Label>
+    <!-- Add Title Text Field -->
+    <TextField fx:id="titleField" prefHeight="40"
+               GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+    <!-- Add Author Label -->
+    <Label text="Author : " GridPane.columnIndex="0"
+           GridPane.rowIndex="2" >
+    </Label>
+    <!-- Add Author Text Field -->
+    <TextField fx:id="authorField" prefHeight="40"
+               GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+    <!-- Add Description Label -->
+    <Label text="Description : " GridPane.columnIndex="0"
+           GridPane.rowIndex="3" >
+    </Label>
+    <!-- Add Description Text Field -->
+    <TextArea fx:id="descriptionField" prefHeight="40"
+               GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+    <!-- Add Available Number Label -->
+    <Label text="Total : " GridPane.columnIndex="0"
+           GridPane.rowIndex="4" >
+    </Label>
+    <!-- Add Available Number Text Field -->
+    <Spinner fx:id="availableNumberField" prefHeight="40"
+               GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <valueFactory>
+            <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="100" />
+        </valueFactory>
+    </Spinner>
+
+    <!-- Add Submit Button -->
+    <Button fx:id="submitBtn" text="Submit"
+            prefWidth="100" prefHeight="40" defaultButton="true"
+            GridPane.columnIndex="0" GridPane.rowIndex="5"
+            GridPane.columnSpan="2" GridPane.rowSpan="1"
+            GridPane.halignment="CENTER"
+            onAction="#submitNewBook">
+        <GridPane.margin>
+            <Insets top="20" right="0" bottom="20" left="0"></Insets>
+        </GridPane.margin>
+        <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+        </cursor>
+    </Button>
+</GridPane>
