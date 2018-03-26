@@ -22,7 +22,7 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th scope="col">No.</th>
+					<th scope="col">Id</th>
 					<th scope="col">Title</th>
 					<th scope="col">Author</th>
 					<th scope="col">Description</th>
@@ -30,8 +30,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="(book, index) in books">
-					<th scope="row">{{ index + 1 }}</th>
+				<tr v-for="book of books">
+					<th scope="row">{{ book.id }}</th>
 					<td>{{ book.title }}</td>
 					<td>{{ book.author }}</td>
 					<td>{{ book.description }}</td>
@@ -67,12 +67,16 @@
 					books: [],
 					borrowedBooks: []
 				},
-				created() {
+				created () {
 					axios.get(BASE_URL + '/books', {
 						headers: {'Access-Control-Allow-Origin': '*'}
 					})
 						.then(res => {
 							this.books = res.data.data
+
+							this.$nextTick(() => {
+								$('.table').DataTable()
+							})
 						})
 				},
 				methods: {
@@ -86,15 +90,8 @@
 					isBorrowed(book) {
 						return this.borrowedBooks.find(id => book.id === id) !== undefined
 					}
-				},
-				watch: {
-					books() {
-						console.log($('.table').html())
-						$('.table').DataTable()
-					}
 				}
 			})
-			
 		})
 	</script>
 </body>

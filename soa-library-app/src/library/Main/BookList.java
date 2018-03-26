@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.converter.IntegerStringConverter;
+import library.AppConfig.Config;
 import library.Helper.AlertHelper;
 import library.Model.Book;
 import library.Model.PostResponseAPI;
@@ -162,8 +163,8 @@ public class BookList implements Initializable {
     public void addBook() throws Exception {
 //      load the attendance list window
         Parent root = FXMLLoader.load(getClass().getResource("BookForm.fxml"));
-        primaryStage.setTitle("Library Management System - New Book");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setTitle(Config.NEW_BOOK_WINDOW_TITLE);
+        primaryStage.setScene(new Scene(root, Config.NEW_BOOK_WINDOW_WIDTH, Config.NEW_BOOK_WINDOW_HEIGHT));
         primaryStage.show();
     }
 

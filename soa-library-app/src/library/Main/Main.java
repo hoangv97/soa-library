@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import library.AppConfig.Config;
 
 public class Main extends Application {
 
@@ -12,8 +13,8 @@ public class Main extends Application {
 //  create a window
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("BookList.fxml"));
-        primaryStage.setTitle("Library Management System");
-        primaryStage.setScene(new Scene(root, 750, 450));
+        primaryStage.setTitle(Config.HOME_WINDOW_TITLE);
+        primaryStage.setScene(new Scene(root, Config.HOME_WINDOW_WIDTH, Config.HOME_WINDOW_HEIGHT));
         primaryStage.show();
     }
 

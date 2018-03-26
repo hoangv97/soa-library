@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="soa-library-app:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/soa_library_app_jar</output-path>
+    <root id="archive" name="soa-library-app.jar">
+      <element id="module-output" name="soa-library-app" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/src/resources/gson-2.8.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
